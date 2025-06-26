@@ -9,18 +9,20 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
+// ...existing code...
 app.use(
   cors({
-    origin: "http://localhost:3000", // or your deployed frontend URL
-    credentials: true,
+    origin: "*", // Accept from everywhere
+    credentials: false, // Credentials must be false with "*"
   })
 );
 
 // Add this for preflight OPTIONS support
 app.options("*", cors({
-  origin: "http://localhost:3000",
-  credentials: true,
+  origin: "*",
+  credentials: false,
 }));
+
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
