@@ -12,16 +12,16 @@ const PORT = process.env.PORT || 5000;
 // ...existing code...
 app.use(
   cors({
-    origin: "*", // Accept from everywhere
-    credentials: false, // Credentials must be false with "*"
+    origin: '*',              // allow all origins
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With'],
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
   })
 );
 
-// Add this for preflight OPTIONS support
-app.options("*", cors({
-  origin: "*",
-  credentials: false,
-}));
+// Ensure every OPTIONS (pre-flight) request gets the same headers
+app.options('*', cors());
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
